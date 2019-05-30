@@ -13,10 +13,10 @@ class User(db.Entity):
     password_hash = Required(str)
     photo = Required(str)
     github = Optional(str)
-    works = Set('work')
-    ads = Set('ad')
-    lookingforwork = Required(bool)
-    typeOfWork = Required(str)
+    ads = Set('Ad')
+    lookingforwork = Optional(bool)
+    medium = Set('Medium')
+    works = Set('Work')
 
 
     def is_password_valid(self, plaintext):
@@ -46,11 +46,13 @@ class User(db.Entity):
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
     username = fields.Str(required=True)
+    lookingforwork = fields.Bool(required=True)
+    photo = fields.Str(required=True)
     email = fields.Str(required=True)
     password = fields.Str(load_only=True)
     password_confirmation = fields.Str(load_only=True)
-    work = fields.Nested('WorkSchema', many=True, exclude=('user', 'ad'))
-    ad = fields.Nested('AdSchema', many=True, exclude=('user', 'work'))
+    works = fields.Nested('WorkSchema', many=True, dump_only=True)
+
 
 
     # basic method

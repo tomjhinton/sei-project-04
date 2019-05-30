@@ -11,26 +11,23 @@ from datetime import datetime, timedelta
 
 class Ad(db.Entity):
     createdBy = Required('User')
-    created = Required(datetime.date)
+    created = Required(str)
     description = Required(str)
-    typeOfWork = Required(str)
+    medium = Set('Medium')
     languages = Optional(str)
-    timeframe = Required(datetime)
+    timeframe = Optional(float)
     budget = Optional(float)
+    name = Required(str)
 
 
 
 class AdSchema(Schema):
     id = fields.Int(dump_only=True) # dump_only means "write only"
     name = fields.Str(required=True)
-    sandwiches = fields.Nested('SandwichSchema', many=True, exclude=('bread', 'categories', 'user'))
-
-
-
-    createdBy = Required(user)
-    created = Required(date)
-    description = fields.Str
-    typeOfWork = Required(str)
-    languages = Optional(str)
-    timeframe = Required(date)
-    budget = Optional(float)
+    created = fields.Str()
+    createdBy = fields.Nested('UserSchema', exclude=('works', 'email'), dump_only=True)
+    description = fields.Str(required=True)
+    languages = fields.Str()
+    name = fields.Str()
+    medium = fields.Nested('MediumSchema', many=True, dump_only=True)
+    timeframe = fields.Float()

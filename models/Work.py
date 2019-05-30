@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 class Work(db.Entity):
     createdBy = Required('User')
-    created = Required(datetime.date)
+    created = Required(str)
     name = Required(str)
     iframe = Optional(str)
     embed = Optional(str)
@@ -15,12 +15,13 @@ class Work(db.Entity):
     github = Optional(str)
     code = Optional(str)
     description = Required(str)
+    medium = Set('Medium')
 
 
 class WorkSchema(Schema):
     id = fields.Int(dump_only=True)
     createdBy = fields.Nested('UserSchema', exclude=('works', 'email'), dump_only=True)
-    created = fields.Date(required=True)
+    created = fields.Str(required=True)
     name = fields.Str(required=True)
     iframe = fields.Str()
     embed = fields.Str()
@@ -28,3 +29,8 @@ class WorkSchema(Schema):
     github = fields.Str()
     code = fields.Str()
     description = fields.Str(required=True)
+    medium = fields.Nested('MediumSchema', many=True, dump_only=True)
+
+
+
+    

@@ -24,7 +24,7 @@ const selectStyles = {
 }
 
 
-
+const date = new Date()
 class Recruit extends React.Component {
 
   constructor() {
@@ -32,6 +32,7 @@ class Recruit extends React.Component {
 
     this.state = {
       data: {
+        created: date.toLocaleDateString()
 
 
       },
@@ -76,10 +77,10 @@ class Recruit extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     const token = Auth.getToken()
-    axios.post('/api/events', this.state.data, {
+    axios.post('/api/ads', this.state.data, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
-      .then(res  => this.props.history.push(`/events/${res.data._id}`))
+      .then(res  => console.log(res))
       .catch(err => this.setState({ errors: err.response.data.errors }))
 
   }
@@ -146,18 +147,18 @@ class Recruit extends React.Component {
 
               <div className="column">
                 <div className="field">
-                  <label className="label">Share Your Code</label>
+                  <label className="label">Name</label>
                   <div className="control">
                     <textarea
                       className="textarea"
-                      name="code"
+                      name="name"
                       placeholder="Show The Code"
                       onChange={this.handleChange}
-                      value={this.state.data.code || ''}
+                      value={this.state.data.name || ''}
                       onKeyDown={this.insertTab}
                     />
                   </div>
-                  {this.state.errors.code && <div className="help is-danger">{this.state.errors.code}</div>}
+                  {this.state.errors.name && <div className="help is-danger">{this.state.errors.name}</div>}
                 </div>
               </div>
 
@@ -197,17 +198,10 @@ class Recruit extends React.Component {
               </div>
 
             </div>
-
+            <button>Submit</button>
 
           </form>
 
-          <p>{this.state.data.description}</p>
-
-          <pre>
-            <code>{this.state.data.code}</code>
-          </pre>
-          {this.state.data.embed && (this.state.data.embed.includes('soundcloud') || this.state.data.embed.includes('youtube') || this.state.data.embed.includes('vimeo')) &&<div dangerouslySetInnerHTML={{__html: this.state.data.embed}}></div>}
-          <iframe src={this.state.data.site}></iframe>
 
         </section>
       </div>

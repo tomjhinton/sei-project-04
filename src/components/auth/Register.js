@@ -14,11 +14,10 @@ class Register extends React.Component{
 
 
   handleChange(e) {
-    // merge data on state with new data from the form
     const data = { ...this.state.data, [e.target.name]: e.target.value }
-    // set the data back on state
+    console.log(data)
+    this.setState({ data })
 
-    this.setState({  data })
   }
 
   handleSubmit(e) {
@@ -26,7 +25,7 @@ class Register extends React.Component{
 
     axios.post('/api/register', this.state.data)
       .then(() => this.props.history.push('/login')) // redirect the user to the login page...
-      .catch(err => this.setState({ errors: err.response.data.errors }))
+      .catch(err => console.log(err))
   }
 
 
@@ -47,28 +46,30 @@ class Register extends React.Component{
                   <input
                     className="input"
                     name="username"
-                    placeholder="eg: drakeon"
+                    placeholder="eg: username"
                     onChange={this.handleChange}
                   />
                 </div>
-                {this.state.errors.username && <div className="help is-danger">{this.state.errors.username}</div>}
+                {this.state.errors && <div className="help is-danger">{this.state.errors.username}</div>}
               </div>
               <div className="field">
                 <label className="label">Email</label>
                 <div className="control">
-                  <input   className="input"    name="email"
+                  <input
+                    className="input"
+                    name="email"
                     placeholder="eg: jack@hotmail.com"
                     onChange={this.handleChange}
                   />
                 </div>
-                {this.state.errors.email && <div className="help is-danger">{this.state.errors.email}</div>}
+
               </div>
               <div className="field">
                 <label className="label">Profile Image</label>
                 <div className="control">
                   <input
                     className="input"
-                    name="image"
+                    name="photo"
                     type="text"
                     placeholder="eg: https:myimages.com"
                     onChange={this.handleChange}
@@ -76,12 +77,13 @@ class Register extends React.Component{
                 </div>
                 {this.state.errors.image && <div className="help is-danger">{this.state.errors.image}</div>}
               </div>
+              
               <div className="field">
-                <label className="label">Github Page</label>
+                <label className="label">lookingforwork</label>
                 <div className="control">
                   <input
                     className="input"
-                    name="github"
+                    name="lookingforwork"
                     type="text"
                     placeholder="eg: https:mygithubs.com"
                     onChange={this.handleChange}
@@ -107,7 +109,7 @@ class Register extends React.Component{
                 <div className="control">
                   <input
                     className="input"
-                    name="passwordConfirmation"
+                    name="password_confirmation"
                     type="password"
                     placeholder="eg: ••••••••"
                     onChange={this.handleChange}

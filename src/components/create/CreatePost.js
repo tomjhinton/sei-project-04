@@ -3,6 +3,7 @@ import axios from 'axios'
 import Auth from '../../lib/Auth'
 import CreatableSelect from 'react-select/lib/Creatable'
 import DOMPurify from 'dompurify'
+import moment from 'moment'
 
 
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
@@ -28,11 +29,9 @@ const selectStyles = {
 
 
 var widget = cloudinary.createUploadWidget({
-  cloudName: process.env.cloud_name , uploadPreset: 'ml_default' }, (error, result) => this.setState({ data: {
-  upload: result.info.secure_url
-} }))
-
-
+  cloudName: process.env.cloud_name , uploadPreset: 'ml_default' }, (error, result) => console.log(result))
+const date = new Date()
+const mo = moment(date, 'YYYY-MM-DD')
 class CreatePost extends React.Component {
 
   constructor() {
@@ -40,6 +39,8 @@ class CreatePost extends React.Component {
 
     this.state = {
       data: {
+        created: date.toLocaleDateString()
+
 
 
       },
@@ -72,9 +73,7 @@ class CreatePost extends React.Component {
     this.setState({ data })
     console.log(this)
     console.log(e)
-    if(this.state.data.embed){
-      embed = this.state.data.embed
-    }
+
   }
 
 
@@ -82,10 +81,10 @@ class CreatePost extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     const token = Auth.getToken()
-    axios.post('/api/events', this.state.data, {
+    axios.post('/api/works', this.state.data, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
-      .then(res  => this.props.history.push(`/events/${res.data._id}`))
+      .then(res  => this.props.history.push(`/work/${res.data._id}`))
       .catch(err => this.setState({ errors: err.response.data.errors }))
 
   }
@@ -145,6 +144,23 @@ dangerous(){
                       placeholder="A description of your event"
                       onChange={this.handleChange}
                       value={this.state.data.description || ''}
+                      onKeyDown={this.insertTab}
+                    />
+                  </div>
+                  {this.state.errors.description && <div className="help is-danger">{this.state.errors.description}</div>}
+                </div>
+              </div>
+
+              <div className="column">
+                <div className="field">
+                  <label className="label">Name</label>
+                  <div className="control">
+                    <textarea
+                      className="textarea"
+                      name="name"
+                      placeholder="A description of your event"
+                      onChange={this.handleChange}
+                      value={this.state.data.name || ''}
                       onKeyDown={this.insertTab}
                     />
                   </div>
@@ -221,6 +237,7 @@ dangerous(){
               </div>
 
             </div>
+            <button>Submit</button>
           </form>
 
           <p>{this.state.data.description}</p>

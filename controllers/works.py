@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, request, jsonify, abort, g
 from pony.orm import db_session
 from marshmallow import ValidationError
 from app import db
@@ -29,7 +29,7 @@ def create():
         # attempt to convert the JSON into a dict
         data = schema.load(request.get_json())
         # Use that to create a work object
-        work = Work(**data)
+        work = Work(**data, createdBy=g.current_user)
         # store it in the database
         db.commit()
     except ValidationError as err:
@@ -40,7 +40,7 @@ def create():
     return schema.dumps(work), 201
 
 
-@router.route('/works/<int:bread_id>', methods=['GET'])
+@router.route('/works/<int:work_id>', methods=['GET'])
 @db_session
 def show(work_id):
     # This will serialize our data

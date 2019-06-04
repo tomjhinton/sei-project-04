@@ -1,11 +1,12 @@
 from app import db
 from pony.orm import Required, Set, Optional
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields , post_load
 from datetime import datetime, timedelta
 
 
 
 
+from .Medium import Medium
 
 
 
@@ -29,5 +30,15 @@ class AdSchema(Schema):
     description = fields.Str(required=True)
     languages = fields.Str()
     name = fields.Str()
-    medium = fields.Nested('MediumSchema', many=True, dump_only=True)
-    timeframe = fields.Float()
+    medium = fields.Nested('MediumSchema', many=True)
+    medium_ids = fields.List(fields.Int(), load_only=True)
+
+
+
+    @post_load
+    def load_medium(self, data):
+
+        data['medium'] = [Medium.get(id=medium_id) for medium_id in data['medium_ids']]
+        del data['medium_ids']
+
+        return data

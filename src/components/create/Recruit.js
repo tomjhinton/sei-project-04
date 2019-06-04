@@ -24,16 +24,22 @@ const selectStyles = {
 }
 
 
+
+
 const date = new Date()
 class Recruit extends React.Component {
+
+
+
+
 
   constructor() {
     super()
 
     this.state = {
       data: {
-        created: date.toLocaleDateString()
-
+        created: date.toLocaleDateString(),
+        medium_ids: []
 
       },
       errors: {
@@ -44,7 +50,7 @@ class Recruit extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    //this.insertTab = this.insertTab.bind(this)
+    this.handleMediumSelect = this.handleMediumSelect.bind(this)
 
   }
 
@@ -60,6 +66,13 @@ class Recruit extends React.Component {
   }
 
 
+  componentDidMount() {
+    console.log(this.props.match)
+    axios.get('/api/mediums')
+      .then(res => this.setState({mediums: res.data}))
+
+  }
+
 
   handleSelectChange(e) {
     console.log(e)
@@ -71,7 +84,14 @@ class Recruit extends React.Component {
 
   }
 
-
+  handleMediumSelect(e){
+    this.setState({
+      data: {
+        ...this.state.data,
+        medium_ids: [ ...this.state.data.medium_ids, parseInt(e.target.value) ]
+      }
+    })
+  }
 
 
   handleSubmit(e) {
@@ -99,24 +119,14 @@ class Recruit extends React.Component {
             <div className="field">
               <label className="label">Type of Work</label>
             </div>
-            <CreatableSelect
-              className='Work'
-              onChange={this.handleSelectChange}
-              styles={selectStyles}
-              isMulti
-            />
-          </form>
-
-
-          <form>
-            <div className="field">
-              <label className="label">Languages</label>
+            <div className="select is-multiple"
+              onChange={this.handleMediumSelect}>
+              {this.state.mediums &&<select>
+                {this.state.mediums.map(medium => {
+                  return <option key={medium.id} value={medium.id}> {medium.name}</option>
+                })}
+              </select>}
             </div>
-            <CreatableSelect
-              onChange={this.handleSelectChange}
-              styles={selectStyles}
-              isMulti
-            />
           </form>
 
           <form className="event-form" onSubmit={this.handleSubmit}>
@@ -132,7 +142,7 @@ class Recruit extends React.Component {
                     <textarea
                       className="textarea"
                       name="description"
-                      placeholder="A description of your event"
+                      placeholder="What are you looking for someone to make?"
                       onChange={this.handleChange}
                       value={this.state.data.description || ''}
                       onKeyDown={this.insertTab}
@@ -147,12 +157,12 @@ class Recruit extends React.Component {
 
               <div className="column">
                 <div className="field">
-                  <label className="label">Name</label>
+                  <label className="label">Title</label>
                   <div className="control">
-                    <textarea
-                      className="textarea"
+                    <input
+
                       name="name"
-                      placeholder="Show The Code"
+                      placeholder="Name of the project."
                       onChange={this.handleChange}
                       value={this.state.data.name || ''}
                       onKeyDown={this.insertTab}
@@ -164,38 +174,7 @@ class Recruit extends React.Component {
 
 
 
-              <div className="column">
-                <div className="field">
-                  <label className="label">Embed an example</label>
-                  <div className="control">
-                    <textarea
-                      className="textarea"
-                      name="embed"
-                      placeholder="Embed something from elsewhere"
-                      onChange={this.handleChange}
-                      value={ this.state.data.embed  || ''}
-                      onKeyDown={this.insertTab}
-                    />
-                  </div>
-                  {this.state.errors.embed && <div className="help is-danger">{this.state.errors.embed}</div>}
-                </div>
-              </div>
-              <div className="column">
-                <div className="field">
-                  <label className="label">Embed Your site</label>
-                  <div className="control">
-                    <textarea
-                      className="textarea"
-                      name="site"
-                      placeholder="Embed something from elsewhere"
-                      onChange={this.handleChange}
-                      value={ this.state.data.site  || ''}
-                      onKeyDown={this.insertTab}
-                    />
-                  </div>
-                  {this.state.errors.embed && <div className="help is-danger">{this.state.errors.embed}</div>}
-                </div>
-              </div>
+
 
             </div>
             <button>Submit</button>

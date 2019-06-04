@@ -42,19 +42,19 @@ class Navbar extends React.Component{
           <div className={`navbar-menu${this.state.active ? ' is-active' : ''}`}>
             <div className="navbar-start">
 
-              {<Link to="/new" className={`navbar-item ${this.state.active ? ' is-active' : ''} `}>Add a piece</Link>}
+              {Auth.isAuthenticated() &&<Link to="/new" className={`navbar-item ${this.state.active ? ' is-active' : ''} `}>Add a piece</Link>}
             </div>
 
             <div className="navbar-start">
 
-              {<Link to="/recruit" className={`navbar-item ${this.state.active ? ' is-active' : ''} `}>Recruit people for a project</Link>}
+              {Auth.isAuthenticated() &&<Link to="/recruit" className={`navbar-item ${this.state.active ? ' is-active' : ''} `}>Recruit people for a project</Link>}
             </div>
 
             <div className="navbar-end">
               {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
               {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
               {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.logout}><strong>Logout</strong></a>}
-              {Auth.isAuthenticated() && <Link to="/myprofile" className={`navbar-item`}>Profile</Link>}
+              {Auth.isAuthenticated() && <Link to="/myprofile" className={'navbar-item'}>Profile</Link>}
 
             </div>
           </div>

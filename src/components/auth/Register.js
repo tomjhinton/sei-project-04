@@ -5,11 +5,14 @@ class Register extends React.Component{
   constructor(){
     super()
     this.state ={
-      data: {},
+      data: {
+        lookingforwork: true
+      },
       errors: {}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleWorkSelect = this.handleWorkSelect.bind(this)
   }
 
 
@@ -28,6 +31,15 @@ class Register extends React.Component{
       .catch(err => console.log(err))
   }
 
+  handleWorkSelect(e){
+    this.setState({
+      data: {
+        ...this.state.data,
+        lookingforwork: e.target.value
+      }
+    })
+    console.log(this.state.data)
+  }
 
 
 
@@ -77,20 +89,34 @@ class Register extends React.Component{
                 </div>
                 {this.state.errors.image && <div className="help is-danger">{this.state.errors.image}</div>}
               </div>
-              
+
+
               <div className="field">
-                <label className="label">lookingforwork</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    name="lookingforwork"
-                    type="text"
-                    placeholder="eg: https:mygithubs.com"
+                <label className="label">Bio</label>
+                <div className="control ">
+                  <textarea
+                    className="textarea "
+                    name="bio"
+                    placeholder="Your biography"
                     onChange={this.handleChange}
+                    value={this.state.data.bio || ''}
+
                   />
                 </div>
-                {this.state.errors.github && <div className="help is-danger">{this.state.errors.github}</div>}
+                {this.state.errors.description && <div className="help is-danger">{this.state.errors.description}</div>}
               </div>
+
+
+              <label className="label">Are you looking for work?</label>
+              <div className="select is-multiple"
+                onChange={this.handleWorkSelect}>
+                <select>
+                  <option  value={true}> Yes</option>
+                  <option  value={false}> No</option>
+
+                </select>
+              </div>
+
               <div className="field">
                 <label className="label">Password</label>
                 <div className="control">

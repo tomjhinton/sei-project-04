@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../../lib/Auth'
+import axios from 'axios'
 
 class Work extends React.Component {
+
+
+
 
 
 
@@ -43,8 +47,6 @@ class Work extends React.Component {
 
         </div>
 
-
-        <div clasNames="tumblr-post" data-href="https://embed.tumblr.com/embed/post/UITxWjERaYD1K869E9LIYg/183033401574" data-did="da39a3ee5e6b4b0d3255bfef95601890afd80709"><a href="https://tomjhinton.tumblr.com/post/183033401574">https://tomjhinton.tumblr.com/post/183033401574</a></div>  <script async src="https://assets.tumblr.com/post.js"></script>
 
       </div>
 

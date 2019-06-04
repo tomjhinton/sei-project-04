@@ -9,9 +9,11 @@ import CreatePost from './components/create/CreatePost'
 import Recruit from './components/create/Recruit'
 import Home from './components/common/Home'
 import Navbar from './components/common/Navbar'
-import Work from './components/show/Work'
+import EditWork from './components/create/EditWork'
+import WorkShow from './components/show/WorkShow'
 import Add from './components/show/Add'
-
+import MyProfile from './components/show/MyProfile'
+import Profile from './components/show/Profile'
 
 
 class App extends React.Component {
@@ -33,8 +35,11 @@ class App extends React.Component {
         <main>
           <Navbar />
           <Switch>
-            <Route path="/add/id:" component={Add} />
-            <Route path="/work" component={Work} />
+            <Route path="/profiles/:id" component={Profile}/>
+            <Route path="/MyProfile/" component={MyProfile} />
+            <Route path="/adverts/:id" component={Add} />
+            <Route path="/works/:id/edit" component={EditWork}/>
+            <Route path="/works/:id" component={WorkShow}/>
             <Route path="/new" component={CreatePost} />
             <Route path="/register" component={Register} />
             <Route path="/recruit" component={Recruit} />

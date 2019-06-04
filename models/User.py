@@ -17,6 +17,7 @@ class User(db.Entity):
     lookingforwork = Optional(bool)
     medium = Set('Medium')
     works = Set('Work')
+    bio = Optional(str)
 
 
     def is_password_valid(self, plaintext):
@@ -52,6 +53,7 @@ class UserSchema(Schema):
     password = fields.Str(load_only=True)
     password_confirmation = fields.Str(load_only=True)
     works = fields.Nested('WorkSchema', many=True, dump_only=True)
+    bio = fields.Str()
 
 
 

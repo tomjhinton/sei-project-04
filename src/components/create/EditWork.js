@@ -34,14 +34,13 @@ const date = new Date()
 const mo = moment(date, 'YYYY-MM-DD')
 
 
-class CreatePost extends React.Component {
+class EditWork extends React.Component {
 
   constructor() {
     super()
 
     this.state = {
       data: {
-        created: date.toLocaleDateString(),
         medium_ids: []
 
 
@@ -73,6 +72,9 @@ class CreatePost extends React.Component {
     axios.get('/api/mediums')
       .then(res => this.setState({mediums: res.data}))
 
+    axios.get(`/api/works/${this.props.match.params.id}`)
+      .then(res => this.setState({data: res.data}))
+
   }
 
   handleSelectChange(e) {
@@ -99,10 +101,10 @@ class CreatePost extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     const token = Auth.getToken()
-    axios.post('/api/works', this.state.data, {
+    axios.put(`/api/works/${this.state.data.id}`, this.state.data, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
-      .then(res  => this.props.history.push(`/work/${res.data._id}`))
+      .then(res  => this.props.history.push(`/works/${res.data._id}`))
       .catch(err => this.setState({ errors: err.response.data.errors }))
 
   }
@@ -140,17 +142,17 @@ dangerous(){
           </form>
 
           <form className="event-form" onSubmit={this.handleSubmit}>
+            {this.state.data &&
+            <div className="columns">
 
-            <div className="columns is-multiline is-mobile">
 
 
-
-              <div className="column is-half">
+              <div className="column">
                 <div className="field">
                   <label className="label">Description</label>
-                  <div className="control ">
+                  <div className="control">
                     <textarea
-                      className="textarea "
+                      className="textarea"
                       name="description"
                       placeholder="A description of your event"
                       onChange={this.handleChange}
@@ -162,7 +164,7 @@ dangerous(){
                 </div>
               </div>
 
-              <div className="column is-half">
+              <div className="column">
                 <div className="field">
                   <label className="label">Name</label>
                   <div className="control">
@@ -182,7 +184,7 @@ dangerous(){
 
 
 
-              <div className="column is-half">
+              <div className="column">
                 <div className="field">
                   <label className="label">Share Your Code</label>
                   <div className="control">
@@ -201,7 +203,7 @@ dangerous(){
 
 
 
-              <div className="column is-half">
+              <div className="column">
                 <div className="field">
                   <label className="label">Embed an example</label>
                   <div className="control">
@@ -223,10 +225,10 @@ dangerous(){
                   <div className="control">
                     <textarea
                       className="textarea"
-                      name="iframe"
+                      name="site"
                       placeholder="Embed something from elsewhere"
                       onChange={this.handleChange}
-                      value={ this.state.data.iframe  || ''}
+                      value={ this.state.data.site  || ''}
                       onKeyDown={this.insertTab}
                     />
                   </div>
@@ -235,9 +237,19 @@ dangerous(){
               </div>
 
 
-              
+              <div className="column">
+                <div className="field">
+                  <label className="label">Upload a photo or video of your work</label>
+                  <div className="control">
+                    <input name="file" type="file"
+                      className="file-upload" data-cloudinary-field="image_id"
+                      data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>
+                  </div>
+                  {this.state.errors.file && <div className="help is-danger">{this.state.errors.file}</div>}
+                </div>
+              </div>
 
-            </div>
+            </div>}
             <button>Submit</button>
           </form>
 
@@ -248,4 +260,4 @@ dangerous(){
   }
 }
 
-export default CreatePost
+export default EditWork

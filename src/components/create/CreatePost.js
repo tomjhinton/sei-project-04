@@ -1,15 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import Auth from '../../lib/Auth'
-import CreatableSelect from 'react-select/lib/Creatable'
 import DOMPurify from 'dompurify'
-import moment from 'moment'
 
-
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
-
-
-let embed = ''
 
 
 const selectStyles = {
@@ -28,10 +21,8 @@ const selectStyles = {
 }
 
 
-var widget = cloudinary.createUploadWidget({
-  cloudName: process.env.cloud_name , uploadPreset: 'ml_default' }, (error, result) => console.log(result))
 const date = new Date()
-const mo = moment(date, 'YYYY-MM-DD')
+
 
 
 class CreatePost extends React.Component {
@@ -107,10 +98,10 @@ class CreatePost extends React.Component {
 
   }
 
-dangerous(){
+  dangerous(){
 
     return {__html: this.state.errors.embed}
-}
+  }
 
   render() {
     console.log(this.state)
@@ -179,6 +170,22 @@ dangerous(){
                 </div>
               </div>
 
+              <div className="column is-half">
+                <div className="field">
+                  <label className="label">Include a picture of your work</label>
+                  <div className="control">
+                    <textarea
+                      className="textarea"
+                      name="picture"
+                      placeholder="Include a picture of your work"
+                      onChange={this.handleChange}
+                      value={this.state.data.picture || ''}
+                      onKeyDown={this.insertTab}
+                    />
+                  </div>
+                  {this.state.errors.picture && <div className="help is-danger">{this.state.errors.picture}</div>}
+                </div>
+              </div>
 
 
 
@@ -203,12 +210,12 @@ dangerous(){
 
               <div className="column is-half">
                 <div className="field">
-                  <label className="label">Embed an example</label>
+                  <label className="label">Embed an example from youtube, soundcloud or vimeo</label>
                   <div className="control">
                     <textarea
                       className="textarea"
                       name="embed"
-                      placeholder="Embed something from elsewhere"
+                      placeholder="Copy and paste the embed code from youtube, vimeo or soundcloud"
                       onChange={this.handleChange}
                       value={ this.state.data.embed  || ''}
                       onKeyDown={this.insertTab}
@@ -224,7 +231,7 @@ dangerous(){
                     <textarea
                       className="textarea"
                       name="iframe"
-                      placeholder="Embed something from elsewhere"
+                      placeholder="Embed your peice from an external URL"
                       onChange={this.handleChange}
                       value={ this.state.data.iframe  || ''}
                       onKeyDown={this.insertTab}
@@ -235,7 +242,7 @@ dangerous(){
               </div>
 
 
-              
+
 
             </div>
             <button>Submit</button>

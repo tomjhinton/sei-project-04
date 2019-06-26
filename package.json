@@ -8,7 +8,9 @@
     "run:server": "nodemon",
     "seed": "node seeds",
     "build": "webpack -p",
-    "start": "node index"
+    "start": "node index",
+    "serve:react": "webpack-dev-server",
+    "serve:flask": "pipenv run flask run -p 4000"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",

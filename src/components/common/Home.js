@@ -3,8 +3,6 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 
 
-import Auth from '../../lib/Auth'
-import Flash from '../../lib/Flash'
 
 class Login extends React.Component{
   constructor(){
@@ -13,7 +11,7 @@ class Login extends React.Component{
       data: {},
       error: ''
     }
-    
+
   }
 
 
@@ -52,9 +50,11 @@ class Login extends React.Component{
                 <Link to={`/adverts/${ad.id}`}>
                   <div className='card-header-title'>{ad.name}</div>
                   <div className='card-image'><img src={ad.createdBy.photo}></img></div>
-                  {ad.description}
+
                 </Link>
+
               </div>
+
             })}
           </div>}
         </div>

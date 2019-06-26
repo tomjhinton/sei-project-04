@@ -1,10 +1,14 @@
 from flask import Flask, jsonify
 from pony.orm import Database
 
-app = Flask(__name__)
+from config.environment import db_uri
+
+
+app = Flask(__name__, static_folder='dist')
 db = Database()
 # connects to the database
-db.bind(provider='postgres', database='codedArt-db')
+db.bind('postgres', db_uri)
+
 
 # pylint: disable=W0611,C0413
 from config import routes # loads in the models and controllers

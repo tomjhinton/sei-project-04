@@ -13,7 +13,7 @@ with db_session():
 
 
 
-
+    schema = UserSchema()
     animation = Medium(name='Animation')
     music = Medium(name='Music')
     application = Medium(name='Application')
@@ -23,7 +23,7 @@ with db_session():
     Hiro = User(
     username='Hiro Protagonist',
     email='Tomjhinton@gmail.com',
-    password_hash=UserSchema().generate_hash('pass'),
+    password_hash=schema.generate_hash('pass'),
     lookingforwork=True,
 	photo="https://66.media.tumblr.com/73d02ec8972950c826286b1b131c52cd/tumblr_oxtpvh44kI1w3debko1_1280.png"
     ,
@@ -38,7 +38,7 @@ with db_session():
     Molly = User(
     username='Molly Millions',
     email='Molly@gmail.com',
-    password_hash=UserSchema().generate_hash('pass'),
+    password_hash=schema.generate_hash('pass'),
     lookingforwork=True,
 	photo="http://i.imgur.com/oU6Vc.jpg"
     ,
@@ -53,7 +53,7 @@ with db_session():
     Johnny = User(
     username='Johnny Mnemonic',
     email='Johnny@gmail.com',
-    password_hash=UserSchema().generate_hash('pass'),
+    password_hash=schema.generate_hash('pass'),
     lookingforwork=True,
 	photo="tom.png"
     ,
@@ -68,20 +68,32 @@ with db_session():
     company = User(
     username='Tyrell Corporation',
     email='Company@gmail.com',
-    password_hash=UserSchema().generate_hash('pass'),
+    password_hash=schema.generate_hash('pass'),
     lookingforwork=True,
     medium=animation,
 	photo="https://i.ytimg.com/vi/QgHXba9TgG0/maxresdefault.jpg"
     )
 
+    lildata = User(
+    username='Lil Data',
+    email='data@gmail.com',
+    password_hash=schema.generate_hash('pass'),
+    lookingforwork=True,
+    medium=music,
+	photo="https://media.ntslive.co.uk/crop/769x769/383b629a-0a34-431a-a4a4-46c26e5ea5f7_1510704000.png",
+    bio="""I tgohteer with my friends were actually examining the good points from your web page and then the sudden developed an awful suspicion I had not thanked the web blog owner for them. My boys came as a result passionate to see them and have in effect truly been making the most of them. I appreciate you for really being simply accommodating and for settling on this sort of ideal areas most people are really desirous to learn about. OUR own sincere apologies for not expressing gratitude to sooner. \n\n
+
+    But the cry “We can do it” before we could, “We are doing it” before we did it, was too loud, too distinct, too often repeated, partly by men whose testimony had a real value in itself, and deserved attention. But it had too much charm for us; we made more of it than it really said or meant. Briefly, the time as it was, dazzled us; yet we still worked actively, in order practically to approach our end. We succeeded in many respects in the way of bringing a few beginning subjects of instruction into better order and to a better psychological foundation; and our efforts on this side might have had really important results; but the practical activity, which alone could secure the success of our purpose, was gradually lost in our midst in a lamentable manner. Matters strange and far removed from our duty soon absorbed our time and powers, and gave a mortal blow to the simplicity, the progress, the concentration, and even the humanity of our original efforts. Great ideas for improving the world, which arose out of elevated views of our subject, and which soon became exaggerated, filled our heads, confused our hearts, and made our hands careless of the needs that lay before our eyes."""
+    )
+
 
     cyberdyne = User(
-    username='Cyberdyne Corporation',
+    username='Cyberdyne Systems',
     email='Company2@gmail.com',
-    password_hash=UserSchema().generate_hash('pass'),
+    password_hash=schema.generate_hash('pass'),
     lookingforwork=True,
     medium=animation,
-	photo="https://cdn11.bigcommerce.com/s-sq9zkarfah/images/stencil/original/products/113451/201531/Cyberdyne-Systems-Terminator-Sticker__47112.1511162846.jpg"
+	photo="https://cdn.shopify.com/s/files/1/1158/9490/products/C000017974-PAR-ZOOM_b559d54f-6c74-4cee-9026-f6086148f294_800x.jpg?v=1527298174"
     )
 
 
@@ -90,32 +102,76 @@ with db_session():
         created="2018/07/02",
         name="Python pic 1",
         picture="https://66.media.tumblr.com/2e27aafca3635fc39ed986936b50379e/tumblr_ps9jc4j0UH1w3debko1_1280.png",
-        description="Image distortion with Python",
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique neque ut accumsan tristique. Cras leo felis, semper in eleifend placerat, efficitur a nunc. Morbi fringilla egestas ante, vitae lacinia nunc vestibulum vitae. Mauris auctor dui eget gravida viverra. Pellentesque vel ultricies diam, sit amet dapibus leo. Morbi mattis enim elit, a imperdiet augue tempor ut. Suspendisse suscipit eleifend dui, bibendum consectetur arcu tristique vel. Nam nec risus aliquet, porttitor quam nec, ultrices sapien. Etiam in iaculis enim. Morbi ultricies semper arcu, vel luctus nulla iaculis auctor. Praesent vitae augue vitae lectus ultrices venenatis sit amet non dolor. Fusce dapibus dignissim nulla sit amet lacinia. Fusce non tortor ac quam vestibulum viverra. Praesent a lectus et dolor consequat aliquet vitae non turpis. Nullam et nulla vitae mi ultrices viverra. Integer sodales arcu velit, a faucibus neque dapibus ut.\n\n
+
+        Curabitur tempus risus sit amet mi finibus mattis. Quisque gravida tempor tortor at consequat. Duis vulputate interdum leo id congue. Maecenas rhoncus nec ligula ut malesuada. Pellentesque volutpat felis ligula, vitae dapibus augue faucibus a. Aenean sagittis enim at quam accumsan, a varius lectus dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut imperdiet arcu ipsum, et porttitor velit scelerisque ut. Vivamus vitae semper mi, eu efficitur neque.""",
         medium=illustration,
         code="""from PIL import Image, ImageDraw, ImageFilter
 
 
-#im = Image.open("6MzjjikJ_400x400.jpg")
-im = Image.open("29.png")
+        #im = Image.open("6MzjjikJ_400x400.jpg")
+        im = Image.open("29.png")
 
-im1 = im.filter(ImageFilter.CONTOUR)
-im1 = im.filter(ImageFilter.FIND_EDGES)
-im6 = im1.filter(ImageFilter.BLUR)
-im5 = im6.filter(ImageFilter.CONTOUR)
-im7 = im5.filter(ImageFilter.EDGE_ENHANCE)
-im8 = im7.filter(ImageFilter.EDGE_ENHANCE)
-im2 = im.filter(ImageFilter.MinFilter(3))
-im3 = im.filter(ImageFilter.MinFilter)  # same as MinFilter(3)
-im8.save('29.png')
-"""
-    )
+        im1 = im.filter(ImageFilter.CONTOUR)
+        im1 = im.filter(ImageFilter.FIND_EDGES)
+        im6 = im1.filter(ImageFilter.BLUR)
+        im5 = im6.filter(ImageFilter.CONTOUR)
+        im7 = im5.filter(ImageFilter.EDGE_ENHANCE)
+        im8 = im7.filter(ImageFilter.EDGE_ENHANCE)
+        im2 = im.filter(ImageFilter.MinFilter(3))
+        im3 = im.filter(ImageFilter.MinFilter)  # same as MinFilter(3)
+        im8.save('29.png')
+        """
+        )
+
+    Work(
+            createdBy=lildata,
+            created="2018/09/02",
+            name="Live at London Algorave for TOPLAP15",
+            picture="https://i.ytimg.com/vi/yOam-0c0og4/hqdefault.jpg",
+            description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique neque ut accumsan tristique. Cras leo felis, semper in eleifend placerat, efficitur a nunc. Morbi fringilla egestas ante, vitae lacinia nunc vestibulum vitae. Mauris auctor dui eget gravida viverra. Pellentesque vel ultricies diam, sit amet dapibus leo. Morbi mattis enim elit, a imperdiet augue tempor ut. Suspendisse suscipit eleifend dui, bibendum consectetur arcu tristique vel. Nam nec risus aliquet, porttitor quam nec, ultrices sapien. Etiam in iaculis enim. Morbi ultricies semper arcu, vel luctus nulla iaculis auctor. Praesent vitae augue vitae lectus ultrices venenatis sit amet non dolor. Fusce dapibus dignissim nulla sit amet lacinia. Fusce non tortor ac quam vestibulum viverra. Praesent a lectus et dolor consequat aliquet vitae non turpis. Nullam et nulla vitae mi ultrices viverra. Integer sodales arcu velit, a faucibus neque dapibus ut.\n\n
+
+            Curabitur tempus risus sit amet mi finibus mattis. Quisque gravida tempor tortor at consequat. Duis vulputate interdum leo id congue. Maecenas rhoncus nec ligula ut malesuada. Pellentesque volutpat felis ligula, vitae dapibus augue faucibus a. Aenean sagittis enim at quam accumsan, a varius lectus dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut imperdiet arcu ipsum, et porttitor velit scelerisque ut. Vivamus vitae semper mi, eu efficitur neque.""",
+            medium=music,
+            code="""do -- zpbb3
+                  bps (127/120)
+                  d1 . m . sl 2 -- zp 1
+                     . ev 4 (# hpf' "1e3 4e3 7e3" 0.3)
+                     $ struct "t(3,8)!2" $ n ("0 1") # s "cutzpbb3"
+                     + sp "1 [1 0.5? 0.25?]" # rvb "0.1:0.1"
+                     # gco "0.3:1:0" # hpf' 5e3 0.2
+                  d2 . i . sl 8 -- zp 2
+                     . juxBy 0.25 (rev) . iter 4 . str 4
+                     . ev 4 (chop 2 . (# pan rand)) . ev 2 ((|+| sp "-2"))
+                     . (# sp "[1 1.5 1 2]/4") . (# del "0.5:0.1:0.5")
+                     . (# hpf' "[1e3 0.5e3 1e3]/2" 0.1) . (# lpf' "[5e3 2e3 3e3]/3" 0.1)
+                     $ sound "cutzpbb3:4(7,16) cutzpbb3:5(3,8)" # gco "1.1:2:1"
+                  d3 . i . sl 2 -- pc
+                     . ev 8 (fa 2)
+                     . ev 4 (# hpf' "1e3 4e3 7e3" "0.1")
+                     $ stack [
+                         s "bdk2:21(3,8) bdk2:21(3,8)" # go "1:3"
+                         ,struct "t(3,8)!2" $ up (sl 4 $ "[0 <-7 [5 5 4]>]!2 [0 -8] [-7 [-10 ~]]" + 1)
+                         # s "bssub" # gco "1:5:4" # shape 0.3
+                         ,ev 4 ((# sp "-1"). jux (rev)) . fa "1 2"
+                         . loopAt 2 . struct "t(3,8)" $ s "jbreaks:100" # gco "1.1:7:5" # shape 0.3
+                         # rvb "0.2:0.2"
+                         ,sl 4 . (# hpf "2e3:0.1").(# rvb "0.9:0.8").(# del "0.2:0.3:0.6").(# pan rand)
+                         $ n (r 4) # s "fxrise" # gco "0.9:3:2"
+                       ]
+
+
+                  hush
+                  """,
+            embed="""<iframe width="560" height="315" src="https://www.youtube.com/embed/Db0QJo1eaoI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>"""
+            )
 
     Work(
         createdBy=Hiro,
         created="2018/07/02",
         name="Python abstraction",
         iframe="",
-        embed="link.png",
+        embed="",
         picture="https://66.media.tumblr.com/0a30785b2846aea9bf3d535d80319a0c/tumblr_ps9jpbjEkG1w3debko1_1280.png",
         github="github link",
         code="""from PIL import Image, ImageDraw, ImageFilter
@@ -134,7 +190,9 @@ im2 = im.filter(ImageFilter.MinFilter(3))
 im3 = im.filter(ImageFilter.MinFilter)  # same as MinFilter(3)
 im8.save('29.png')
 """,
-        description="Made some stuff",
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+        \n
+        Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
         medium=illustration
     )
 
@@ -147,7 +205,9 @@ im8.save('29.png')
         picture="https://66.media.tumblr.com/2a864fe1e626ae39b0efe245de61acd5/tumblr_psb6544WUj1w3debko1_1280.png",
         github="github link",
         code="heres some code",
-        description="Made some stuff",
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+        \n
+        Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
         medium=illustration
     )
 
@@ -157,7 +217,7 @@ im8.save('29.png')
         created="2018/07/02",
         name="SuperMarioClouds.JS",
         iframe="",
-        embed='repr<iframe width="560" height="315" src="https://www.youtube.com/embed/Pz29DtB6fX4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+        embed="""<iframe width="560" height="315" src="https://www.youtube.com/embed/Pz29DtB6fX4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>""",
         picture="https://66.media.tumblr.com/fff4ebd18455390b89ed52b8af925ecb/tumblr_psbnxw0bfo1w3debko1_1280.png",
         github="",
         code="""import TileResolver from '../TileResolver.js'
@@ -199,7 +259,9 @@ export function createBackgroundLayer(level, tiles, sprites) {
             -camera.pos.y);
     };
 }""",
-        description="A JavaScript version of Cory Arcangel's Super Mario Clouds",
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+        \n
+        Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
         medium=animation
     )
 
@@ -332,7 +394,9 @@ export function createBackgroundLayer(level, tiles, sprites) {
 
     drawComics()
 """,
-        description="A generative comic made using JavaScript and Canvas",
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+        \n
+        Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
         medium=application
     )
 
@@ -346,19 +410,23 @@ export function createBackgroundLayer(level, tiles, sprites) {
 
 
     Ad(
-        name="Advertisement",
+        name="Looking for an Illustartor",
         createdBy=company,
         created="2018/07/02",
-        description="Made some stuff",
-        medium=animation
+        description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+        \n
+        Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
+        medium=illustration
     )
 
 
     Ad(
-    name="Do Some Stuff",
+    name="Need music for a project",
     createdBy=cyberdyne,
     created="2018/07/02",
-    description="Made some stuff",
+    description="""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus libero, iaculis sit amet nunc a, varius interdum turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ornare ultrices libero, vitae malesuada erat interdum sit amet. Quisque vel felis dignissim, efficitur felis auctor, consequat magna. Phasellus tortor elit, dignissim ac euismod id, fermentum ut turpis. Nullam ex orci, elementum ac felis quis, interdum consequat eros. Etiam pharetra diam ut tincidunt consectetur. Nunc sit amet bibendum diam, et laoreet sapien. Nam aliquam convallis libero ac maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae finibus arcu.\n
+    \n
+    Vivamus cursus placerat ipsum eget suscipit. Sed malesuada diam nec fermentum rutrum. Pellentesque sagittis hendrerit ligula vel placerat. Suspendisse blandit libero sed sapien lacinia, nec finibus leo feugiat. Duis porta sit amet magna nec interdum. Praesent vitae convallis arcu, vitae interdum erat. Vivamus nisi nulla, tincidunt eu ultricies sit amet, placerat et lectus. Integer at erat volutpat, ultricies sapien luctus, pulvinar mauris. Cras eget luctus elit.""",
     medium=music
     )
 

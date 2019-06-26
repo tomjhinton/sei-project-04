@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Auth from '../../lib/Auth'
-import CreatableSelect from 'react-select/lib/Creatable'
+
 
 
 
@@ -159,8 +159,8 @@ class Recruit extends React.Component {
                 <div className="field">
                   <label className="label">Title</label>
                   <div className="control">
-                    <input
-
+                    <textarea
+                      className="textarea"
                       name="name"
                       placeholder="Name of the project."
                       onChange={this.handleChange}

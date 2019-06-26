@@ -1,15 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import Auth from '../../lib/Auth'
-import CreatableSelect from 'react-select/lib/Creatable'
 import DOMPurify from 'dompurify'
-import moment from 'moment'
 
 
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 
 
-let embed = ''
 
 
 const selectStyles = {
@@ -28,10 +24,7 @@ const selectStyles = {
 }
 
 
-var widget = cloudinary.createUploadWidget({
-  cloudName: process.env.cloud_name , uploadPreset: 'ml_default' }, (error, result) => console.log(result))
-const date = new Date()
-const mo = moment(date, 'YYYY-MM-DD')
+
 
 
 class EditWork extends React.Component {
@@ -109,10 +102,10 @@ class EditWork extends React.Component {
 
   }
 
-dangerous(){
+  dangerous(){
 
     return {__html: this.state.errors.embed}
-}
+  }
 
   render() {
     console.log(this.state)

@@ -36,7 +36,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route path="/profiles/:id" component={Profile}/>
-            <SecureRoute path="/MyProfile/" component={MyProfile} />
+            <SecureRoute path="/myprofile/" component={MyProfile} />
             <Route path="/adverts/:id" component={Add} />
             <Route path="/works/:id/edit" component={EditWork}/>
             <Route path="/works/:id" component={WorkShow}/>

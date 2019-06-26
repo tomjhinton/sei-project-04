@@ -14,7 +14,7 @@ import WorkShow from './components/show/WorkShow'
 import Add from './components/show/Add'
 import MyProfile from './components/show/MyProfile'
 import Profile from './components/show/Profile'
-
+import SecureRoute from './components/common/SecureRoute'
 
 class App extends React.Component {
   constructor(){
@@ -36,7 +36,7 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route path="/profiles/:id" component={Profile}/>
-            <Route path="/MyProfile/" component={MyProfile} />
+            <SecureRoute path="/MyProfile/" component={MyProfile} />
             <Route path="/adverts/:id" component={Add} />
             <Route path="/works/:id/edit" component={EditWork}/>
             <Route path="/works/:id" component={WorkShow}/>

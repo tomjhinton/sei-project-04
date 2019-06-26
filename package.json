@@ -4,7 +4,6 @@
   "engines": {
     "node": "v11.14.0"
   },
-
   "description": "",
   "main": "index.js",
   "scripts": {

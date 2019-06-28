@@ -1,6 +1,10 @@
 # Interstitial
 project-04
 
+
+<img width="1439" alt="Screenshot 2019-06-28 at 07 08 49" src="https://user-images.githubusercontent.com/44926628/60321070-9c0e9180-9973-11e9-90a8-eded2bafc036.png">
+
+
 ### Timeframe
 7 days
 
@@ -49,7 +53,26 @@ I made Interstitial a site designed for the sharing of creative projects made wi
 ## Process
 _Describe the process of building the game. How did you get started? How did you manage your time? How would you do things next time?_
 
+I wanted to create a site where users could login and post either work they had created with code or to post and advert to say they were looking for someone to do some work. This meant creating forms for registration and creating both types of post. Integrating a form with a SQL backend was something that I'd not done before and getting the data to be passed back and forth in the right format took a bit of work.
 
+With each piece I wanted the option to display a picture of the work, a description of it, examples of the code used to create it and to embed it in a way that could effectively showcase it.
+
+Retaining the formatting in the descriptions after it has gone into and been pulled out of the database was an issue that I'd had to deal with before.
+
+I had to split the string at any  ```\n``` and insert a ```<br/>``` to retain line breaks.
+
+```
+<div className='column'>
+  {this.state.work.description && <p className="comment-body">
+    {this.state.work.description.split('\n').map((text, i) =>
+      <span key={i}>
+        {text}<br />
+      </span>
+    )}
+  </p>}
+
+</div>
+```
 
 
 ### Challenges and wins
